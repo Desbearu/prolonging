@@ -6,8 +6,11 @@ public class CodeController : MonoBehaviour
 {
     public double codeCooldown = 0;
     public int codeEvent;
+    public GameObject light;
 
     public string[] correctPw;
+    public GameObject[] codes;
+    public GameObject[] pressedButtons;
     private string input;
     private int selectedCode = -1;
     
@@ -26,9 +29,10 @@ public class CodeController : MonoBehaviour
         codeCooldown += 0.05;
         if(codeCooldown >= codeEvent && selectedCode < 0)
         {
-            selectedCode = Random.Range(0,5);
+            selectedCode = Random.Range(0,4);
             Debug.Log(selectedCode);
-            //botar pra mostrar o icone aqui;
+            codes[selectedCode].SetActive(true);
+            light.SetActive(true);
         }
         
         if(selectedCode >= 0){
@@ -36,12 +40,12 @@ public class CodeController : MonoBehaviour
             {
                 if(input == correctPw[selectedCode])
                 {
-                    Debug.Log("funcionou");
                     buttonClicked = 0;
                     codeCooldown = 0;
-                    selectedCode = -1;
                     input = "";
-                    //tirar o icone
+                    codes[selectedCode].SetActive(false);
+                    selectedCode = -1;
+                    light.SetActive(false);
                 }
                 else
                 {
@@ -57,6 +61,15 @@ public class CodeController : MonoBehaviour
     public void GetButtonPressedName(string name)
     {
         input += name;
+        int num = int.Parse(name);
+        num = num - 1;
+        pressedButtons[num].SetActive(true);
         buttonClicked += 1;
+        StartCoroutine(Timer(num));
+    }
+
+    IEnumerator Timer(int num){
+        yield return new WaitForSeconds(0.3f);
+        pressedButtons[num].SetActive(false); 
     }
 }

@@ -13,6 +13,8 @@ public class ElectricController : MonoBehaviour
     public GameObject spriteUp;
     public GameObject spriteDown;
 
+    public GameObject sparks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +43,12 @@ public class ElectricController : MonoBehaviour
         spriteDown.SetActive(true);
         spriteUp.SetActive(false);
         elecLight.SetActive(false);
+        sparks.SetActive(true);
+        StartCoroutine(Timer());
+    }
+
+    IEnumerator Timer(){
+        yield return new WaitForSeconds(0.1f);
+        sparks.SetActive(false);
     }
 }

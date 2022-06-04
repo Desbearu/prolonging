@@ -50,8 +50,10 @@ public class ObjectClicker : MonoBehaviour
                 {
                     if(pressure.Pressure > pressure.PressureLimit)
                     {
+                        pressure.pressureButton.SetActive(true);
                         pressure.Pressure -= 235;
                         pointer.GetComponent<PointerBehavior>().ReleasePointer();
+                        StartCoroutine(ButtonPressed(pressure.pressureButton));
                     }
                 }
                 if(hit.collider.gameObject.tag == "Electricity" && !torch.torchActive)
@@ -72,7 +74,10 @@ public class ObjectClicker : MonoBehaviour
                 }
                 if(hit.collider.gameObject.tag == "Button" && !torch.torchActive)
                 {
+                    if(monitor.codeCooldown > monitor.codeEvent)
+                    {
                     monitor.GetButtonPressedName(hit.collider.gameObject.name);
+                    }
                 }
                 if(hit.collider.gameObject.tag == "Recorder" && !torch.torchActive)
                 {
@@ -109,5 +114,10 @@ public class ObjectClicker : MonoBehaviour
         else{
             ventLever.transform.position = LeverPos.transform.position;
         }
+    }
+
+    IEnumerator ButtonPressed(GameObject button){
+        yield return new WaitForSeconds(0.3f);
+        button.SetActive(false);
     }
 }

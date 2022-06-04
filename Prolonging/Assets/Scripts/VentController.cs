@@ -8,11 +8,14 @@ public class VentController : MonoBehaviour
     public double VentExtreme =  200;
     public double VentMinimun = 100;
 
-    public GameObject VentLight;
+    private GameObject VentLight;
+
+    private GameObject warningLight;
 
     void Start()
     {
-        
+        warningLight = GameObject.Find("ventilacao-aviso-deu-merda");
+        VentLight =  GameObject.Find("luz-ventilacao");
     }
 
     void Update()
@@ -27,9 +30,11 @@ public class VentController : MonoBehaviour
 
         if(VentCooldown >= VentExtreme){
             VentLight.SetActive(true);
+            warningLight.SetActive(true);
         }
         else if(VentCooldown < VentMinimun){
             VentLight.SetActive(false);
+            warningLight.SetActive(false);
         }
     }
 }
