@@ -20,6 +20,9 @@ public class ObjectClicker : MonoBehaviour
 
     private TorchController torch;
 
+    private SonarButton sonar;
+    private SonarPointer detector;
+
     void Start()
     {
         pressure = GameObject.Find("Pressure").GetComponent<PressureController>();
@@ -28,6 +31,8 @@ public class ObjectClicker : MonoBehaviour
         monitor = GameObject.Find("Monitor").GetComponent<CodeController>();
         recorder = GameObject.Find("Rec").GetComponent<RecorderController>();
         torch = GameObject.Find("Torch").GetComponent<TorchController>();
+        sonar = GameObject.Find("Sonar").GetComponent<SonarButton>();
+        detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
     }
 
     // Update is called once per frame
@@ -92,6 +97,12 @@ public class ObjectClicker : MonoBehaviour
                 {
                     Debug.Log("macarico");
                     torch.torchActive = !torch.torchActive;
+                }
+                if(hit.collider.gameObject.tag == "Sonar" && sonar.botaoAtivo == true){
+                    detector.Shoot();
+                    sonar.botaoApertado.SetActive(true);
+                    sonar.activeCooldown = true;
+                    StartCoroutine(ButtonPressed(sonar.botaoApertado));
                 }
             }
         }

@@ -27,7 +27,6 @@ public class SonarPointer : MonoBehaviour
         sonarCooldown += 0.00001f;
          if(sonarCooldown >= sonarLimit && currentlyDetected <= 8)
          {
-             Debug.Log("a");
              detected = Random.Range(0, detections.Length);
              if(detections[detected]){
                 detected = Random.Range(0, detections.Length);
@@ -40,5 +39,13 @@ public class SonarPointer : MonoBehaviour
          if(currentlyDetected == 8){
             warningLight.SetActive(true);
          }
+    }
+
+    public void Shoot()
+    {
+        foreach (GameObject detection in detections){
+            detection.SetActive(false);
+        }
+        currentlyDetected = 0;
     }
 }

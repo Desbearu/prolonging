@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     private CodeController monitor;
     private RecorderController recorder;
     private TorchController torch;
+    private SonarButton sonar;
+    private SonarPointer detector;
 
     private float rotation;
     private Quaternion target;
@@ -28,12 +30,20 @@ public class GameController : MonoBehaviour
         monitor = GameObject.Find("Monitor").GetComponent<CodeController>();
         recorder = GameObject.Find("Rec").GetComponent<RecorderController>();
         torch = GameObject.Find("Torch").GetComponent<TorchController>();
+        sonar = GameObject.Find("Sonar").GetComponent<SonarButton>();
+        detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Depth += fallingSpeed;
+
+        if(Depth > 180){
+            sonar.botaoAberto.SetActive(true);
+            sonar.botaoFechado.SetActive(false);
+            sonar.botaoAtivo = true;
+        }
 
         if(Depth > 270)
         {

@@ -12,6 +12,7 @@ TagManager:
   - Buraco
   - Torch
   - RadarDetection
+  - Sonar
   layers:
   - Default
   - TransparentFX

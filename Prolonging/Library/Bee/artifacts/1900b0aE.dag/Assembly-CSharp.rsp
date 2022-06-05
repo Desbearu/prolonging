@@ -390,6 +390,7 @@
 "Assets/Scripts/PointerBehavior.cs"
 "Assets/Scripts/PressureController.cs"
 "Assets/Scripts/RecorderController.cs"
+"Assets/Scripts/SonarButton.cs"
 "Assets/Scripts/SonarDetection.cs"
 "Assets/Scripts/SonarPointer.cs"
 "Assets/Scripts/TorchController.cs"
