@@ -8,6 +8,8 @@ public class PressureController : MonoBehaviour
     public double PressureLimit = 235;
     public double PressureExtreme = 360;
 
+    public AudioSource pressureWarningSound;
+
     public GameObject pressureLight;
     public GameObject pressureButton;
     private GameObject lightAsset;
@@ -25,10 +27,15 @@ public class PressureController : MonoBehaviour
         }
 
         if(Pressure > PressureLimit){
+            if(pressureWarningSound.isPlaying == false){
+                pressureWarningSound.Play();
+            }
+
             lightAsset.SetActive(true);
             pressureLight.SetActive(true);
         }
         else{
+            pressureWarningSound.Stop();
             lightAsset.SetActive(false);
             pressureLight.SetActive(false);
         }

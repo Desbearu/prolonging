@@ -7,6 +7,7 @@ public class VentController : MonoBehaviour
     public double VentCooldown = 0;
     public double VentExtreme =  200;
     public double VentMinimun = 100;
+    public AudioSource ventAlarm;
 
     private GameObject VentLight;
 
@@ -19,20 +20,16 @@ public class VentController : MonoBehaviour
     }
 
     void Update()
-    {   
-        if(VentCooldown < VentExtreme){
-            VentCooldown += 0.05;
-        }
-
-        if(VentCooldown < 0){
-            VentCooldown = 0;
-        }
-
+    { 
         if(VentCooldown >= VentExtreme){
+            if(ventAlarm.isPlaying == false){
+                ventAlarm.Play();
+            }
             VentLight.SetActive(true);
             warningLight.SetActive(true);
         }
         else if(VentCooldown < VentMinimun){
+            ventAlarm.Stop();
             VentLight.SetActive(false);
             warningLight.SetActive(false);
         }

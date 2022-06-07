@@ -13,12 +13,6 @@ public class SonarDetection : MonoBehaviour
         audio = gameObject.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "RadarDetection"){
@@ -30,6 +24,7 @@ public class SonarDetection : MonoBehaviour
      {
          float alphaVal = sprite.color.a;
          Color tmp = sprite.color;
+
          audio.Play();
  
          while (sprite.color.a < 1)

@@ -13,8 +13,11 @@ public class TorchController : MonoBehaviour
     private bool bigHole = false;
     public int selectedHole;
     public bool torchActive = false;
+    public GameObject selectedLight;
 
     private Vector3 originalScale;
+
+    public AudioSource torchSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,13 @@ public class TorchController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        holeCooldown += 0.01;
+        if(torchActive == true)
+        {
+            selectedLight.SetActive(true);
+        }else{
+            selectedLight.SetActive(false);
+        }
+
         if(holeCooldown > showHole && !activeHole)
         {
             selectedHole = Random.Range(0, holes.Length);

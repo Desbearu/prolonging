@@ -15,6 +15,9 @@ public class ElectricController : MonoBehaviour
 
     public GameObject sparks;
 
+    public AudioSource lightsOut;
+    public AudioSource lightsOn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +27,12 @@ public class ElectricController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        eletricityCooldown += 0.03;
 
         if(eletricityCooldown > eletricityLimit)
         {
+            if(lightsOut.isPlaying == false){
+                lightsOut.Play();
+            }
             elecLightOn.SetActive(false);
             elecLightOff.SetActive(true);
             spriteDown.SetActive(false);
@@ -38,6 +43,9 @@ public class ElectricController : MonoBehaviour
 
     public void ButtonDown()
     {
+        if(lightsOut.isPlaying == true){
+            lightsOut.Stop();
+        }
         elecLightOn.SetActive(true);
         elecLightOff.SetActive(false);
         spriteDown.SetActive(true);

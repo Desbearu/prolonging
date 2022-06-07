@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectClicker : MonoBehaviour
 {
+    public AudioSource wrongInput;
     private PressureController pressure;
     public PointerBehavior pointer;
     
@@ -42,6 +43,7 @@ public class ObjectClicker : MonoBehaviour
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
         RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
         
+        //Vent just like in the hit game Among Us
         if(hit.collider != null)
         {
             VentLeverMover(mousePos,hit);
@@ -51,16 +53,20 @@ public class ObjectClicker : MonoBehaviour
             if (hit.collider != null)
              {
                 Debug.Log(hit.collider.gameObject.name);
+
+                //Pressure
                 if(hit.collider.gameObject.tag == "Pressure" && !torch.torchActive)
                 {
+                    pressure.pressureButton.SetActive(true);
+                    StartCoroutine(ButtonPressed(pressure.pressureButton));
                     if(pressure.Pressure > pressure.PressureLimit)
                     {
-                        pressure.pressureButton.SetActive(true);
                         pressure.Pressure -= 235;
-                        pointer.GetComponent<PointerBehavior>().ReleasePointer();
-                        StartCoroutine(ButtonPressed(pressure.pressureButton));
+                        pointer.GetComponent<PointerBehavior>().ReleasePointer();    
                     }
                 }
+
+                //Electricity
                 if(hit.collider.gameObject.tag == "Electricity" && !torch.torchActive)
                 {
                     if(elec.eletricityCooldown > elec.eletricityLimit)
@@ -76,33 +82,80 @@ public class ObjectClicker : MonoBehaviour
                             //som que deu errado
                         }
                     }
+                    else{
+                        if(wrongInput.isPlaying == false){
+                            wrongInput.Play();
+                        }
+                    }
                 }
+
+                //Code
                 if(hit.collider.gameObject.tag == "Button" && !torch.torchActive)
                 {
                     if(monitor.codeCooldown > monitor.codeEvent)
                     {
                     monitor.GetButtonPressedName(hit.collider.gameObject.name);
+                    } else {
+                        if(wrongInput.isPlaying == false){
+                            wrongInput.Play();
+                        }
                     }
                 }
+
+                //Recorder
                 if(hit.collider.gameObject.tag == "Recorder" && !torch.torchActive)
                 {
-                    recorder.songPlaying = !(recorder.songPlaying);
-                    recorder.SongOn();
+                    if(!recorder.charging){
+                        recorder.songPlaying = !(recorder.songPlaying);
+                        recorder.SongOn();
+                    }
+                    else{
+                        if(wrongInput.isPlaying == false){
+                            wrongInput.Play();
+                        }
+                    }
                 }
+
+                //Torch
                 if(hit.collider.gameObject.tag == "Buraco" && torch.torchActive)
                 {
+                    if(torch.torchSound.isPlaying == false){
+                        torch.torchSound.Play();
+                    }
                     torch.CloseHole(torch.holes[torch.selectedHole]);
+                }
+                else if (hit.collider.gameObject.tag != "Buraco" && hit.collider.gameObject.tag != "Torch" && torch.torchActive){
+                    if(wrongInput.isPlaying == false){
+                        wrongInput.Play();
+                    }
+                }
+                else if(hit.collider.gameObject.tag == "Buraco" && !torch.torchActive){
+                    if(wrongInput.isPlaying == false){
+                        wrongInput.Play();
+                    }
                 }
                 if(hit.collider.gameObject.tag == "Torch")
                 {
                     Debug.Log("macarico");
                     torch.torchActive = !torch.torchActive;
                 }
-                if(hit.collider.gameObject.tag == "Sonar" && sonar.botaoAtivo == true){
+
+                //Radar
+                if(hit.collider.gameObject.tag == "Sonar" && !torch.torchActive && sonar.activeCooldown == false && detector.sonarCooldown > 0){
                     detector.Shoot();
                     sonar.botaoApertado.SetActive(true);
                     sonar.activeCooldown = true;
                     StartCoroutine(ButtonPressed(sonar.botaoApertado));
+                }
+                else if(hit.collider.gameObject.tag == "Sonar" && !torch.torchActive && detector.sonarCooldown <= 0){
+                    if(wrongInput.isPlaying == false){
+                        wrongInput.Play();
+                    }
+                }
+                else if(hit.collider.gameObject.tag == "OutOfBounds"){
+                    if(wrongInput.isPlaying == false){
+                        wrongInput.Play();
+                    }
                 }
             }
         }

@@ -6,9 +6,8 @@ public class GameController : MonoBehaviour
 {
     public float Depth = 0;
     public GameObject depthLight;
-    public bool Radar =  false; 
 
-    private float fallingSpeed = 0.0001f;
+    private float fallingSpeed = 0.01f;
 
     private PressureController pressure;
     private VentController vent;
@@ -21,7 +20,7 @@ public class GameController : MonoBehaviour
 
     private float rotation;
     private Quaternion target;
-    // Start is called before the first frame update
+
     void Start()
     {
         pressure = GameObject.Find("Pressure").GetComponent<PressureController>();
@@ -34,7 +33,6 @@ public class GameController : MonoBehaviour
         detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Depth += fallingSpeed;
@@ -58,12 +56,50 @@ public class GameController : MonoBehaviour
         target = Quaternion.Euler(0, 0, -rotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, target,  Time.deltaTime);
 
+        ProblemActivation();
 
         PressureCheck();
         VentCheck();
         EletricityCheck();
         SanityCheck();
         TorchCheck();
+    }
+
+    void ProblemActivation()
+    {
+        if(Depth > 36)
+        {
+            elec.eletricityCooldown += 0.03f;
+        }
+        if(Depth > 72)
+        {
+            if(vent.VentCooldown < vent.VentExtreme){
+                vent.VentCooldown += 0.05;
+            }
+
+            if(vent.VentCooldown < 0){
+                vent.VentCooldown = 0;
+            }
+        }
+        if(Depth > 108)
+        {
+            torch.holeCooldown += 0.01;
+        }
+        if(Depth > 144)
+        {
+            recorder.sanityCooldown += 0.05;
+        }
+        if(Depth > 180)
+        {
+            detector.sonarCooldown += 0.01f;
+        }
+        if(Depth > 216)
+        {
+            monitor.codeCooldown += 0.05;
+        }
+        if(Depth > 360){
+            Debug.Log("morte");
+        }
     }
 
     void PressureCheck(){

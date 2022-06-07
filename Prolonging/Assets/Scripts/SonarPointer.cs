@@ -24,7 +24,6 @@ public class SonarPointer : MonoBehaviour
     {
          gameObject.transform.Rotate(0.0f, 0.0f, -0.5f);
 
-        sonarCooldown += 0.00001f;
          if(sonarCooldown >= sonarLimit && currentlyDetected <= 8)
          {
              detected = Random.Range(0, detections.Length);
@@ -46,6 +45,7 @@ public class SonarPointer : MonoBehaviour
         foreach (GameObject detection in detections){
             detection.SetActive(false);
         }
+        warningLight.SetActive(false);
         currentlyDetected = 0;
     }
 }

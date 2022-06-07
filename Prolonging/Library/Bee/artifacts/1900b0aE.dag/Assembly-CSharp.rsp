@@ -384,6 +384,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/CodeController.cs"
 "Assets/Scripts/ElectricController.cs"
+"Assets/Scripts/FPSLimiter.cs"
 "Assets/Scripts/GameController.cs"
 "Assets/Scripts/menuControl.cs"
 "Assets/Scripts/ObjectClicker.cs"

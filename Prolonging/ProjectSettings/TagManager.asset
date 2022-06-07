@@ -13,6 +13,7 @@ TagManager:
   - Torch
   - RadarDetection
   - Sonar
+  - OutOfBounds
   layers:
   - Default
   - TransparentFX

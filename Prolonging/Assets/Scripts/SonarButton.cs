@@ -12,7 +12,7 @@ public class SonarButton : MonoBehaviour
 
     private BoxCollider2D col;
 
-    public bool activeCooldown;
+    public bool activeCooldown = false;
 
     void Start()
     {
@@ -28,9 +28,8 @@ public class SonarButton : MonoBehaviour
     {
         if(activeCooldown == true)
         {
-            col.enabled = false;
             StartCoroutine(ShootingCooldown());
-
+            activeCooldown = false;
         }
     }
 
@@ -41,6 +40,7 @@ public class SonarButton : MonoBehaviour
     }
 
     IEnumerator ShootingCooldown(){
+        col.enabled = false;
         yield return new WaitForSeconds(5);
         col.enabled = true;
         activeCooldown = false;

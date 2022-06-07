@@ -26,7 +26,6 @@ public class CodeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        codeCooldown += 0.05;
         if(codeCooldown >= codeEvent && selectedCode < 0)
         {
             selectedCode = Random.Range(0,4);

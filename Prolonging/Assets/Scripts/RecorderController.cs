@@ -12,6 +12,8 @@ public class RecorderController : MonoBehaviour
 
     public bool songPlaying = false;
 
+    public GameObject spriteRec;
+
     private bool songCheck = false;
     public bool charging = false;
 
@@ -24,7 +26,6 @@ public class RecorderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sanityCooldown += 0.05;
         if(sanityCooldown > sanityLimit)
         {
             //ele fica doido
@@ -33,6 +34,7 @@ public class RecorderController : MonoBehaviour
             sanityCooldown -= 0.8;
         }
         if(music.time == music.clip.length){
+            spriteRec.SetActive(true);
             songPlaying = false;
             songCheck = false;
             StartCoroutine(Timer(cooldownTime));
@@ -42,6 +44,7 @@ public class RecorderController : MonoBehaviour
     public void SongOn()
     {
         if(songPlaying && !charging){
+            spriteRec.SetActive(false);
             if(songCheck)
             {
                 music.UnPause();
@@ -52,6 +55,7 @@ public class RecorderController : MonoBehaviour
             }
         }
         else{
+            spriteRec.SetActive(true);
             music.Pause();
         }
     }
