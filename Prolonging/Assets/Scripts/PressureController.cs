@@ -13,17 +13,17 @@ public class PressureController : MonoBehaviour
     public GameObject pressureLight;
     public GameObject pressureButton;
     private GameObject lightAsset;
-    // Start is called before the first frame update
+
     void Start()
     {
         lightAsset = GameObject.Find("pressao-luz-acesa");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(Pressure < PressureExtreme){
-            Pressure += 0.001f;
+            Pressure += 0.1f;
         }
 
         if(Pressure > PressureLimit){

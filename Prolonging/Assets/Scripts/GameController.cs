@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     public float Depth = 0;
     public GameObject depthLight;
 
-    private float fallingSpeed = 0.01f;
+    private float fallingSpeed = 0.005f;
 
     private PressureController pressure;
     private VentController vent;
@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
 
     private float rotation;
     private Quaternion target;
+
+    public AudioSource[] allAudioSources;
 
     void Start()
     {
@@ -117,6 +119,10 @@ public class GameController : MonoBehaviour
     void EletricityCheck(){
         if(elec.eletricityCooldown > elec.eletricityLimit)
         {
+            foreach(AudioSource audio in allAudioSources){
+                audio.Stop();
+            }
+
             Depth += fallingSpeed;
         }
     }
