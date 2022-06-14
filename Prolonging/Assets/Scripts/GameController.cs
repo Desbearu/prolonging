@@ -23,6 +23,10 @@ public class GameController : MonoBehaviour
 
     public AudioSource[] allAudioSources;
 
+    public GameObject background;
+
+    public AudioSource EASalarm;
+
     void Start()
     {
         pressure = GameObject.Find("Pressure").GetComponent<PressureController>();
@@ -47,6 +51,9 @@ public class GameController : MonoBehaviour
 
         if(Depth > 270)
         {
+            if(EASalarm.isPlaying == false){
+                EASalarm.Play();
+            }
             depthLight.SetActive(true);
         }
         if(Depth >= 360){
@@ -65,18 +72,23 @@ public class GameController : MonoBehaviour
         EletricityCheck();
         SanityCheck();
         TorchCheck();
+
+        BgMovement();
     }
 
     void ProblemActivation()
     {
         if(Depth > 36)
         {
-            elec.eletricityCooldown += 0.03f;
+            elec.eletricityCooldown += 0.1f;
+            pressure.Pressure += 0.1f;
         }
         if(Depth > 72)
         {
+            elec.eletricityCooldown += 0.05f;
+            pressure.Pressure += 0.025f;
             if(vent.VentCooldown < vent.VentExtreme){
-                vent.VentCooldown += 0.05;
+                vent.VentCooldown += 0.1;
             }
 
             if(vent.VentCooldown < 0){
@@ -85,19 +97,67 @@ public class GameController : MonoBehaviour
         }
         if(Depth > 108)
         {
-            torch.holeCooldown += 0.01;
+            vent.VentCooldown += 0.05f;
+            elec.eletricityCooldown += 0.025f;
+            pressure.Pressure += 0.025f;
+            torch.holeCooldown += 0.1;
         }
         if(Depth > 144)
         {
+            vent.VentCooldown += 0.05f;
+            elec.eletricityCooldown += 0.025f;
+            pressure.Pressure += 0.025f;
+            torch.holeCooldown += 0.05f;
             recorder.sanityCooldown += 0.05;
         }
         if(Depth > 180)
         {
+            vent.VentCooldown += 0.025f;
+            elec.eletricityCooldown += 0.0025f;
+            pressure.Pressure += 0.0025f;
+            torch.holeCooldown += 0.0025f;
+            recorder.sanityCooldown += 0.0025;
             detector.sonarCooldown += 0.01f;
         }
         if(Depth > 216)
         {
+            vent.VentCooldown += 0.025f;
+            elec.eletricityCooldown += 0.0025f;
+            pressure.Pressure += 0.0025f;
+            torch.holeCooldown += 0.0025f;
+            recorder.sanityCooldown += 0.0025;
+            detector.sonarCooldown += 0.0025f;
             monitor.codeCooldown += 0.05;
+        }
+        if(Depth > 252)
+        {
+            vent.VentCooldown += 0.025f;
+            elec.eletricityCooldown += 0.025f;
+            pressure.Pressure += 0.025f;
+            torch.holeCooldown += 0.025f;
+            recorder.sanityCooldown += 0.025;
+            detector.sonarCooldown += 0.025f;
+            monitor.codeCooldown += 0.1;
+        }
+        if(Depth > 288)
+        {
+            vent.VentCooldown += 0.025f;
+            elec.eletricityCooldown += 0.025f;
+            pressure.Pressure += 0.025f;
+            torch.holeCooldown += 0.025f;
+            recorder.sanityCooldown += 0.025;
+            detector.sonarCooldown += 0.025f;
+            monitor.codeCooldown += 0.1;
+        }
+        if(Depth > 324)
+        {
+            vent.VentCooldown += 0.025f;
+            elec.eletricityCooldown += 0.0025f;
+            pressure.Pressure += 0.0025f;
+            torch.holeCooldown += 0.0025f;
+            recorder.sanityCooldown += 0.0025;
+            detector.sonarCooldown += 0.0025f;
+            monitor.codeCooldown += 0.1;
         }
         if(Depth > 360){
             Debug.Log("morte");
@@ -152,5 +212,10 @@ public class GameController : MonoBehaviour
         {
             Depth += fallingSpeed;
         }
+    }
+
+    void BgMovement()
+    {
+        background.transform.position = new Vector3 (-0.39f, (Depth/6) - 29.2f, 0);
     }
 }

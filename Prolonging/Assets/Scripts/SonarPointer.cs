@@ -12,6 +12,7 @@ public class SonarPointer : MonoBehaviour
     private int currentlyDetected;
     private GameObject warningLight;
 
+    public AudioSource shot;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,7 @@ public class SonarPointer : MonoBehaviour
 
     public void Shoot()
     {
+        shot.Play();
         foreach (GameObject detection in detections){
             detection.SetActive(false);
         }

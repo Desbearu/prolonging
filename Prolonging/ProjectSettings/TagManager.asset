@@ -14,11 +14,12 @@ TagManager:
   - RadarDetection
   - Sonar
   - OutOfBounds
+  - Manual
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Manual
   - Water
   - UI
   - 
@@ -50,4 +51,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Manual
+    uniqueID: 2934045073
     locked: 0

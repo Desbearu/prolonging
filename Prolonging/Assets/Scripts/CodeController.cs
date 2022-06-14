@@ -68,6 +68,7 @@ public class CodeController : MonoBehaviour
     }
 
     IEnumerator Timer(int num){
+        
         yield return new WaitForSeconds(0.3f);
         pressedButtons[num].SetActive(false); 
     }

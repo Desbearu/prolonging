@@ -386,6 +386,7 @@
 "Assets/Scripts/ElectricController.cs"
 "Assets/Scripts/FPSLimiter.cs"
 "Assets/Scripts/GameController.cs"
+"Assets/Scripts/ManualController.cs"
 "Assets/Scripts/menuControl.cs"
 "Assets/Scripts/ObjectClicker.cs"
 "Assets/Scripts/PointerBehavior.cs"

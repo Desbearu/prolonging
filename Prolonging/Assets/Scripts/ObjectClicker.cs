@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectClicker : MonoBehaviour
 {
     public AudioSource wrongInput;
+    public AudioSource buttonPress;
     private PressureController pressure;
     public PointerBehavior pointer;
     
@@ -24,6 +25,8 @@ public class ObjectClicker : MonoBehaviour
     private SonarButton sonar;
     private SonarPointer detector;
 
+    private ManualController manual;
+
     void Start()
     {
         pressure = GameObject.Find("Pressure").GetComponent<PressureController>();
@@ -34,6 +37,7 @@ public class ObjectClicker : MonoBehaviour
         torch = GameObject.Find("Torch").GetComponent<TorchController>();
         sonar = GameObject.Find("Sonar").GetComponent<SonarButton>();
         detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
+        manual = GameObject.Find("Manual").GetComponent<ManualController>();
     }
 
     // Update is called once per frame
@@ -76,10 +80,11 @@ public class ObjectClicker : MonoBehaviour
                         if(elecCheck > 75)
                         {
                             elec.eletricityCooldown = 0;
+                            elec.working.Play();
                             elec.ButtonDown();
                         }
                         else {
-                            //som que deu errado
+                            elec.fail.Play();
                         }
                     }
                     else{
@@ -95,6 +100,7 @@ public class ObjectClicker : MonoBehaviour
                     if(monitor.codeCooldown > monitor.codeEvent)
                     {
                     monitor.GetButtonPressedName(hit.collider.gameObject.name);
+                    buttonPress.Play();
                     } else {
                         if(wrongInput.isPlaying == false){
                             wrongInput.Play();
@@ -157,6 +163,12 @@ public class ObjectClicker : MonoBehaviour
                         wrongInput.Play();
                     }
                 }
+
+                //Manual
+                if(hit.collider.gameObject.tag == "Manual" && !torch.torchActive)
+                {
+                    manual.OpenManual();
+                }
             }
         }
     }
@@ -176,11 +188,16 @@ public class ObjectClicker : MonoBehaviour
             }
         }
         else{
+            if(ventLever.transform.position != LeverPos.transform.position)
+            {
+                vent.leverDown.Play();
+            }
             ventLever.transform.position = LeverPos.transform.position;
         }
     }
 
     IEnumerator ButtonPressed(GameObject button){
+        buttonPress.Play();
         yield return new WaitForSeconds(0.3f);
         button.SetActive(false);
     }

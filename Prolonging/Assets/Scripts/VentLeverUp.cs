@@ -6,18 +6,40 @@ public class VentLeverUp : MonoBehaviour
 {
     public VentController vent;
     public GameObject LeverPos;
+
+    private bool leverPosCheck = false;
+    private bool endCheck;
     
+    void Start()
+    {
+        vent = GameObject.Find("Vent").GetComponent<VentController>();
+    }
+
     void Update(){
         if(gameObject.transform.position.y >= (LeverPos.transform.position.y - 0.2)){
-            if(vent.GetComponent<VentController>().VentCooldown > 0)
-            {
-                Debug.Log("a");
-                vent.GetComponent<VentController>().VentCooldown -= 1;
+            if(leverPosCheck == false){
+                vent.ventStart.Play();
+                vent.leverStuck.Play();
+                leverPosCheck = true;
             }
-            else if(vent.GetComponent<VentController>().VentCooldown == 0)
+            if(vent.VentCooldown > 0)
             {
-                //colocar som de ter zerado aqui. 
+                if(vent.ventStart.isPlaying == false && vent.ventLoop.isPlaying == false){
+                    vent.ventLoop.Play();
+                }
+                vent.VentCooldown -= 1;
             }
+            else if(vent.VentCooldown == 0)
+            {
+                if(endCheck == false){
+                    vent.ventEnd.Play(); 
+                }
+                endCheck = true;
+            }
+        }
+        else{
+            endCheck = false;
+            leverPosCheck = false;
         }
     }
 }

@@ -26,8 +26,10 @@ public class RecorderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(sanityCooldown > sanityLimit)
+        if(sanityCooldown >= sanityLimit)
         {
+            sanityCooldown = sanityLimit;
+            
             //ele fica doido
         }
         if(music.isPlaying == true){

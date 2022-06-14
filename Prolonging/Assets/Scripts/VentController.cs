@@ -13,6 +13,13 @@ public class VentController : MonoBehaviour
 
     private GameObject warningLight;
 
+    public AudioSource leverDown;
+    public AudioSource leverStuck;
+
+    public AudioSource ventStart;
+    public AudioSource ventLoop;
+    public AudioSource ventEnd;
+
     void Start()
     {
         warningLight = GameObject.Find("ventilacao-aviso-deu-merda");

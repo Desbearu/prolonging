@@ -18,6 +18,9 @@ public class ElectricController : MonoBehaviour
     public AudioSource lightsOut;
     public AudioSource lightsOn;
 
+    public AudioSource fail;
+    public AudioSource working;
+
     // Start is called before the first frame update
     void Start()
     {
