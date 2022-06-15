@@ -18,6 +18,17 @@ public class GameController : MonoBehaviour
     private SonarButton sonar;
     private SonarPointer detector;
 
+    private GameObject pressureObject;
+    private GameObject ventObject;
+    private GameObject elecObject;
+    private GameObject monitorObject;
+    private GameObject recorderObject;
+    private GameObject torchObject;
+    private GameObject sonarObject;
+    private GameObject detectorObject;
+
+    public GameObject final;
+
     private float rotation;
     private Quaternion target;
 
@@ -29,13 +40,28 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        pressureObject = GameObject.Find("Pressure");
         pressure = GameObject.Find("Pressure").GetComponent<PressureController>();
+
+        ventObject = GameObject.Find("Vent");
         vent = GameObject.Find("Vent").GetComponent<VentController>();
+
+        elecObject = GameObject.Find("Elec");
         elec = GameObject.Find("Elec").GetComponent<ElectricController>();
+
+        monitorObject =  GameObject.Find("Monitor");
         monitor = GameObject.Find("Monitor").GetComponent<CodeController>();
+
+        recorderObject = GameObject.Find("Rec");
         recorder = GameObject.Find("Rec").GetComponent<RecorderController>();
+
+        torchObject = GameObject.Find("Torch");
         torch = GameObject.Find("Torch").GetComponent<TorchController>();
+
+        sonarObject = GameObject.Find("Sonar");
         sonar = GameObject.Find("Sonar").GetComponent<SonarButton>();
+
+        detectorObject = GameObject.Find("Detector");
         detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
     }
 
@@ -49,7 +75,7 @@ public class GameController : MonoBehaviour
             sonar.botaoAtivo = true;
         }
 
-        if(Depth > 270)
+        if(Depth > 270 && Depth < 361)
         {
             if(EASalarm.isPlaying == false){
                 EASalarm.Play();
@@ -160,6 +186,7 @@ public class GameController : MonoBehaviour
             monitor.codeCooldown += 0.1;
         }
         if(Depth > 360){
+            Deactivate();
             Debug.Log("morte");
         }
     }
@@ -218,4 +245,21 @@ public class GameController : MonoBehaviour
     {
         background.transform.position = new Vector3 (-0.39f, (Depth/6) - 29.2f, 0);
     }
+
+    void Deactivate()
+    {
+        pressureObject.SetActive(false);
+        ventObject.SetActive(false);
+        elecObject.SetActive(false);
+        monitorObject.SetActive(false);
+        recorderObject.SetActive(false);
+        torchObject.SetActive(false);
+        sonarObject.SetActive(false);
+        detectorObject.SetActive(false);
+
+        EASalarm.Stop();
+
+        final.SetActive(true);
+    }
+    
 }
