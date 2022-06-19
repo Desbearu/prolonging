@@ -38,6 +38,12 @@ public class GameController : MonoBehaviour
 
     public AudioSource EASalarm;
 
+    public GameObject glass1;
+    public AudioSource glassbreaking;
+    public GameObject glass2;
+
+    public GameObject ambience;
+
     void Start()
     {
         pressureObject = GameObject.Find("Pressure");
@@ -63,11 +69,15 @@ public class GameController : MonoBehaviour
 
         detectorObject = GameObject.Find("Detector");
         detector = GameObject.Find("Detector").GetComponent<SonarPointer>();
+
+        ambience = GameObject.Find("Ambience");
     }
 
     void Update()
     {
         Depth += fallingSpeed;
+
+        pressure.Pressure += 0.1f;
 
         if(Depth > 180){
             sonar.botaoAberto.SetActive(true);
@@ -142,7 +152,7 @@ public class GameController : MonoBehaviour
             elec.eletricityCooldown += 0.0025f;
             pressure.Pressure += 0.0025f;
             torch.holeCooldown += 0.0025f;
-            recorder.sanityCooldown += 0.0025;
+            recorder.sanityCooldown += 0.05;
             detector.sonarCooldown += 0.01f;
         }
         if(Depth > 216)
@@ -151,7 +161,7 @@ public class GameController : MonoBehaviour
             elec.eletricityCooldown += 0.0025f;
             pressure.Pressure += 0.0025f;
             torch.holeCooldown += 0.0025f;
-            recorder.sanityCooldown += 0.0025;
+            recorder.sanityCooldown += 0.05;
             detector.sonarCooldown += 0.0025f;
             monitor.codeCooldown += 0.05;
         }
@@ -161,12 +171,16 @@ public class GameController : MonoBehaviour
             elec.eletricityCooldown += 0.025f;
             pressure.Pressure += 0.025f;
             torch.holeCooldown += 0.025f;
-            recorder.sanityCooldown += 0.025;
+            recorder.sanityCooldown += 0.05;
             detector.sonarCooldown += 0.025f;
             monitor.codeCooldown += 0.1;
         }
         if(Depth > 288)
         {
+            if(glass1.active == false){
+                glassbreaking.Play();
+            }
+            glass1.SetActive(true);
             vent.VentCooldown += 0.025f;
             elec.eletricityCooldown += 0.025f;
             pressure.Pressure += 0.025f;
@@ -177,6 +191,10 @@ public class GameController : MonoBehaviour
         }
         if(Depth > 324)
         {
+            if(glass2.active == false){
+                glassbreaking.Play();
+            }
+            glass2.SetActive(true);
             vent.VentCooldown += 0.025f;
             elec.eletricityCooldown += 0.0025f;
             pressure.Pressure += 0.0025f;
@@ -256,6 +274,7 @@ public class GameController : MonoBehaviour
         torchObject.SetActive(false);
         sonarObject.SetActive(false);
         detectorObject.SetActive(false);
+        ambience.SetActive(false);
 
         EASalarm.Stop();
 

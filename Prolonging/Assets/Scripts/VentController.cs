@@ -20,25 +20,28 @@ public class VentController : MonoBehaviour
     public AudioSource ventLoop;
     public AudioSource ventEnd;
 
+    private ElectricController elec;
+
     void Start()
     {
         warningLight = GameObject.Find("ventilacao-aviso-deu-merda");
         VentLight =  GameObject.Find("luz-ventilacao");
+        elec = GameObject.Find("Elec").GetComponent<ElectricController>();
     }
 
     void Update()
     { 
         if(VentCooldown >= VentExtreme){
-            if(ventAlarm.isPlaying == false){
+            if(ventAlarm.isPlaying == false && elec.eletricityCooldown < elec.eletricityLimit){
                 ventAlarm.Play();
             }
             VentLight.SetActive(true);
             warningLight.SetActive(true);
         }
         else if(VentCooldown < VentMinimun){
-            ventAlarm.Stop();
             VentLight.SetActive(false);
             warningLight.SetActive(false);
+            ventAlarm.Stop();
         }
     }
 }

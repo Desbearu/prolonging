@@ -41,7 +41,7 @@ public class SonarButton : MonoBehaviour
 
     IEnumerator ShootingCooldown(){
         col.enabled = false;
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(10);
         col.enabled = true;
         activeCooldown = false;
     }

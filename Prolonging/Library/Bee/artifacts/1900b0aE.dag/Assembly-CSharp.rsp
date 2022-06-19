@@ -397,6 +397,7 @@
 "Assets/Scripts/SonarButton.cs"
 "Assets/Scripts/SonarDetection.cs"
 "Assets/Scripts/SonarPointer.cs"
+"Assets/Scripts/StartGame.cs"
 "Assets/Scripts/TorchController.cs"
 "Assets/Scripts/VentController.cs"
 "Assets/Scripts/VentLeverUp.cs"

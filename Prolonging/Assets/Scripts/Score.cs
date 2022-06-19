@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        scoreText.text =(Mathf.Round(Time.time/60)) + " minutes";
+        scoreText.text =(Mathf.Round(Time.timeSinceLevelLoad/60)) + " minutes";
         StartCoroutine(FadeInText(2f, topText));
         StartCoroutine(FadeInText(2f, scoreText));
         StartCoroutine(FadeInText(2f, bottomText));

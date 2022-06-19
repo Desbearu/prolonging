@@ -60,6 +60,10 @@ public class ManualController : MonoBehaviour
     }
 
     void SanityCheck(){
+        if(sanity.sanityCooldown <= 30){
+            correctPages[pageNum].SetActive(true);
+            highSanityPages[pageNum].SetActive(false);
+        }
         if(sanity.sanityCooldown > (sanity.sanityLimit/2) && sanity.sanityCooldown < sanity.sanityLimit){
             int num = Random.Range(0,100);
             if(num > 50){

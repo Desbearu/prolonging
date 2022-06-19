@@ -27,7 +27,7 @@ public class VentLeverUp : MonoBehaviour
                 if(vent.ventStart.isPlaying == false && vent.ventLoop.isPlaying == false){
                     vent.ventLoop.Play();
                 }
-                vent.VentCooldown -= 1;
+                vent.VentCooldown -= 4;
             }
             else if(vent.VentCooldown == 0)
             {

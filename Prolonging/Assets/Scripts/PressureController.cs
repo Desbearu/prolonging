@@ -14,20 +14,19 @@ public class PressureController : MonoBehaviour
     public GameObject pressureButton;
     private GameObject lightAsset;
 
+    private ElectricController elec;
+
     void Start()
     {
         lightAsset = GameObject.Find("pressao-luz-acesa");
+        elec = GameObject.Find("Elec").GetComponent<ElectricController>();
     }
 
 
     void Update()
     {
-        if(Pressure < PressureExtreme){
-            Pressure += 0.1f;
-        }
-
         if(Pressure > PressureLimit){
-            if(pressureWarningSound.isPlaying == false){
+            if(pressureWarningSound.isPlaying == false && elec.eletricityCooldown < elec.eletricityLimit){
                 pressureWarningSound.Play();
             }
 

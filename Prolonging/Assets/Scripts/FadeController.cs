@@ -9,6 +9,8 @@ public class FadeController : MonoBehaviour
     public Image backgroundImage;
     public GameObject canvas;
 
+    public int time = 10;
+
     void Start()
     {
         StartCoroutine(FadeIn());
@@ -27,7 +29,7 @@ public class FadeController : MonoBehaviour
 
              yield return new WaitForSeconds(0.05f); // update interval
          }
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(time);
         StartCoroutine(Timer());
         StartCoroutine(FadeOut(sprite));
         StartCoroutine(FadeOut(backgroundImage));
@@ -50,6 +52,6 @@ public class FadeController : MonoBehaviour
      }
 
      IEnumerator Timer(){
-         yield return new WaitForSeconds(60f);
+         yield return new WaitForSeconds(time);
      }
 }

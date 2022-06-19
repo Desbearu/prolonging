@@ -15,6 +15,7 @@ TagManager:
   - Sonar
   - OutOfBounds
   - Manual
+  - Tentacle
   layers:
   - Default
   - TransparentFX

@@ -111,6 +111,7 @@ public class ObjectClicker : MonoBehaviour
                 //Recorder
                 if(hit.collider.gameObject.tag == "Recorder" && !torch.torchActive)
                 {
+                    buttonPress.Play();
                     if(!recorder.charging){
                         recorder.songPlaying = !(recorder.songPlaying);
                         recorder.SongOn();
@@ -159,6 +160,13 @@ public class ObjectClicker : MonoBehaviour
                     }
                 }
                 else if(hit.collider.gameObject.tag == "OutOfBounds"){
+                    if(wrongInput.isPlaying == false){
+                        wrongInput.Play();
+                    }
+                }
+
+                //Sanity
+                if(hit.collider.gameObject.tag == "Tentacle"){
                     if(wrongInput.isPlaying == false){
                         wrongInput.Play();
                     }
